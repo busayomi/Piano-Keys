@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="keys center">
+            <div class="key white" data-key="65">
+                <kdb>A</kbd>   
+            </div>
+           <div data-key="81" class="key black">
+                <kdb>Q</kbd>
+           </div>
+           <div class="key white" data-key="83" >
+                <kdb>S</kbd>
+           </div>
+           <div class="key black" data-key="87" >
+                <kdb>W</kbd>
+           </div>
+           <div class="key white" data-key="68" >
+                <kdb>D</kbd>
+           </div>
+           <div class="key white" data-key="70">
+                <kdb>F</kbd>
+           </div>
+           <div class="key black" data-key="69" >
+                <kdb>E</kbd>
+           </div>
+           <div class="key white" data-key="71" >
+                <kdb>G</kbd>
+           </div>
+           <div class="key black" data-key="82" >
+                <kdb>R</kbd>
+           </div>
+           <div class="key white" data-key="72" >
+                <kdb>H</kbd>
+           </div>
+           <div class="key black" data-key="84" >
+                <kdb>T</kbd>
+           </div>
+           <div class="key white" data-key="74" >
+                <kdb>J</kbd>
+           </div>
+           <div class="key white" data-key="75" >
+                <kdb>K</kbd>
+           </div>
+        </div>
+        <audio data-key="65" src="sounds/do.wav"></audio>
+        <audio data-key="83" src="sounds/re.wav"></audio>
+        <audio data-key="68" src="sounds/mi.wav"></audio>
+        <audio data-key="70" src="sounds/fa.wav"></audio>
+        <audio data-key="71" src="sounds/so.wav"></audio>
+        <audio data-key="72" src="sounds/la.wav"></audio>
+        <audio data-key="74" src="sounds/si.wav"></audio>
+        <audio data-key="75" src="sounds/do-octave.wav"></audio>
+        <audio data-key="76" src="sounds/0m-048-C3.wav"></audio>
+        <audio data-key="80" src="sounds/0m-051-D#3.wav"></audio>
+    </body>
+
+    <script>
+        function playAudio(e) {
+            var key = document.querySelector(`div[data-key="${e.keyCode}"]`);
+            audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            if (!audio) return;
+            key.classList.add('play');    
+            audio.currentTime = 0;
+            audio.play();
+            console.log(key);
+        }
+        function endTransition(e) {
+            if (e.propertyName !== 'transform') return;
+            this.classList.remove('play');
+        }
+        window.addEventListener('keydown', playAudio);
+
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => key.addEventListener('transitionend', endTransition));
+    </script>
+</html>
